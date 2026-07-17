@@ -54,14 +54,38 @@
       return; // no scroll-jacking for users who prefer reduced motion
     }
 
+    // Hard scroll lock via CSS, not just wheel preventDefault(): some browsers/mice
+    // (Windows precision touchpads, drivers that emit OS-level inertial scroll)
+    // don't reliably let a single 'wheel' listener cancel the resulting scroll,
+    // which let the page slip past the hero instead of growing the media.
+    // overflow:hidden makes the document non-scrollable at the rendering level,
+    // independent of wheel/touch event quirks.
+    function lockScroll() {
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function unlockScroll() {
+      document.documentElement.style.overflow = '';
+    }
+
+    lockScroll();
     // Start from the collapsed state once JS confirms it can drive the effect.
     render();
+
+    // Wheel deltaY isn't consistently in pixels: deltaMode 1 = lines (Firefox on
+    // Windows typically reports ~3 per notch), deltaMode 2 = pages. Normalize to
+    // an approximate pixel value so the effect feels the same across browsers.
+    function normalizedDeltaY(e) {
+      if (e.deltaMode === 1) return e.deltaY * 16;
+      if (e.deltaMode === 2) return e.deltaY * window.innerHeight;
+      return e.deltaY;
+    }
 
     function updateProgress(newProgress) {
       scrollProgress = clamp(newProgress, 0, 1);
       if (scrollProgress >= 1) {
         mediaFullyExpanded = true;
         showContent = true;
+        unlockScroll();
       } else if (scrollProgress < 0.75) {
         showContent = false;
       }
@@ -71,11 +95,12 @@
     function handleWheel(e) {
       if (mediaFullyExpanded && e.deltaY < 0 && window.scrollY <= 5) {
         mediaFullyExpanded = false;
+        lockScroll();
         e.preventDefault();
         render();
       } else if (!mediaFullyExpanded) {
         e.preventDefault();
-        updateProgress(scrollProgress + e.deltaY * 0.0009);
+        updateProgress(scrollProgress + normalizedDeltaY(e) * 0.0009);
       }
     }
 
@@ -90,6 +115,7 @@
 
       if (mediaFullyExpanded && deltaY < -20 && window.scrollY <= 5) {
         mediaFullyExpanded = false;
+        lockScroll();
         e.preventDefault();
         render();
       } else if (!mediaFullyExpanded) {
