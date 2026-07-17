@@ -58,7 +58,7 @@ a:hover { color: #efd48c; }
 .nav-links { display: flex; align-items: center; gap: 28px; font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 2px; font-weight: 500; }
 .nav-link { color: #b8b0a4; transition: color .2s; }
 .nav-link:hover { color: var(--accent); }
-.nav-cta { background: var(--accent); color: #151009; padding: 10px 20px; font-weight: 600; border-radius: 2px; transition: background .2s; }
+.nav-cta { display: inline-flex; align-items: center; background: var(--accent); color: #151009; padding: 10px 20px; font-weight: 600; border-radius: 2px; }
 .nav-cta:hover { background: #efd48c; color: #151009; }
 .lang-switch { display: flex; align-items: center; gap: 8px; font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 1px; }
 .lang-btn {
@@ -106,7 +106,7 @@ a:hover { color: #efd48c; }
 .btn-gold {
   display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #151009;
   font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 2px; font-weight: 600;
-  padding: 15px 30px; border-radius: 2px; transition: background .2s;
+  padding: 15px 30px; border-radius: 2px;
 }
 .btn-gold:hover { background: #efd48c; color: #151009; }
 .btn-outline {
@@ -166,6 +166,25 @@ a:hover { color: #efd48c; }
 }
 .tilt-card.tilting { transition: transform 60ms linear, box-shadow 60ms linear; }
 .tilt-card:hover, .tilt-card.tilting { box-shadow: 0 26px 50px -12px rgba(0,0,0,.6), 0 0 0 1px rgba(216,169,74,.15); z-index: 3; }
+
+/* Buttons keep their own background-color transition alongside the tilt transform/shadow */
+.btn-gold.tilt-card, .nav-cta.tilt-card {
+  transition: transform .6s cubic-bezier(.34,1.56,.64,1), box-shadow .6s cubic-bezier(.34,1.56,.64,1), background .2s;
+}
+.btn-gold.tilt-card.tilting, .nav-cta.tilt-card.tilting {
+  transition: transform 60ms linear, box-shadow 60ms linear, background .2s;
+}
+.btn-gold.tilt-card:hover, .nav-cta.tilt-card:hover, .btn-gold.tilt-card.tilting, .nav-cta.tilt-card.tilting {
+  box-shadow: 0 16px 32px -10px rgba(0,0,0,.55), 0 0 0 1px rgba(216,169,74,.15);
+}
+/* WhatsApp fab: let the tilt's own moving shadow take over from the ambient pulse while active */
+.whatsapp-fab.tilt-card {
+  transition: transform .6s cubic-bezier(.34,1.56,.64,1), box-shadow .6s cubic-bezier(.34,1.56,.64,1);
+}
+.whatsapp-fab.tilt-card.tilting {
+  transition: transform 60ms linear, box-shadow 60ms linear;
+  animation-play-state: paused;
+}
 
 /* ── Glowing effect (mouse-tracking border glow) ── */
 .glow-card { position: relative; }
