@@ -43,20 +43,37 @@
   </button>
 </nav>
 
-<header id="top" class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-scrim"></div>
-  <div class="hero-fade"></div>
-  <div class="hero-inner">
-    <p class="eyebrow" data-i18n="hero.eyebrow">DIE PREMIUM BARBERSHOP ERFAHRUNG</p>
-    <h1 class="hero-title">
-      <span class="light" data-i18n="hero.title1">Dein Fade.</span>
-      <span class="gold" data-i18n="hero.title2">Deine Krone.</span>
-    </h1>
-    <p class="hero-sub" data-i18n="hero.sub">Präzise Skin Fades, scharfe Konturen und exzellente Bartpflege im Herzen Österreichs. Jeder Schnitt mit Handwerk, nie in Eile.</p>
-    <div class="btn-row">
-      <a href="https://www.instagram.com/midobarbershop.at" target="_blank" rel="noopener" class="btn-gold glow-card tilt-card"><div class="glow-effect"><div class="glow"></div></div><span data-i18n="hero.cta1">TERMIN VEREINBAREN</span> <span>→</span></a>
-      <a href="tel:+4368120606849" class="btn-outline">✆ +43 681 20606849</a>
+<header id="top" class="expand-hero" data-screen-label="Hero">
+  <div class="expand-bg" id="expandBg" style="background-image:url('img/hero.png')"></div>
+  <div class="expand-bg-scrim"></div>
+
+  <div class="expand-viewport">
+    <div class="expand-media" id="expandMedia">
+      <video class="expand-video" src="video/mido-homepage.mp4" poster="img/hero-video-poster.jpg" muted autoplay loop playsinline preload="auto" disablepictureinpicture disableremoteplayback>
+        <source src="video/mido-homepage.webm" type="video/webm">
+        <source src="video/mido-homepage.mp4" type="video/mp4">
+      </video>
+      <div class="expand-media-overlay" id="expandOverlay"></div>
+    </div>
+
+    <div class="expand-text">
+      <div class="expand-title-row" id="expandTitleRow">
+        <h1 class="expand-title expand-title-left" id="expandTitleLeft" data-i18n="hero.title1">Dein Fade.</h1>
+        <h1 class="expand-title expand-title-right" id="expandTitleRight" data-i18n="hero.title2">Deine Krone.</h1>
+      </div>
+
+      <div class="expand-caption" id="expandCaption">
+        <p class="eyebrow" data-i18n="hero.eyebrow">DIE PREMIUM BARBERSHOP ERFAHRUNG</p>
+        <p class="expand-hint" data-i18n="hero.scrollhint">SCROLLEN ZUM ENTDECKEN ↓</p>
+      </div>
+    </div>
+
+    <div class="expand-reveal" id="expandReveal">
+      <p class="hero-sub" data-i18n="hero.sub">Präzise Skin Fades, scharfe Konturen und exzellente Bartpflege im Herzen Österreichs. Jeder Schnitt mit Handwerk, nie in Eile.</p>
+      <div class="btn-row">
+        <a href="https://www.instagram.com/midobarbershop.at" target="_blank" rel="noopener" class="btn-gold glow-card tilt-card"><div class="glow-effect"><div class="glow"></div></div><span data-i18n="hero.cta1">TERMIN VEREINBAREN</span> <span>→</span></a>
+        <a href="tel:+4368120606849" class="btn-outline">✆ +43 681 20606849</a>
+      </div>
     </div>
   </div>
 </header>
@@ -269,6 +286,7 @@
 </a>
 
 <script src="js/i18n.js"></script>
+<script src="js/scroll-expand-media.js"></script>
 <script src="js/glow-effect.js"></script>
 <script src="js/tilt-effect.js"></script>
 </body>

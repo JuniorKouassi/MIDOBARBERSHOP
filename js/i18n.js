@@ -15,6 +15,7 @@ const T = {
     'hero.title2':  'Deine Krone.',
     'hero.sub':     'Präzise Skin Fades, scharfe Konturen und exzellente Bartpflege im Herzen Österreichs. Jeder Schnitt mit Handwerk, nie in Eile.',
     'hero.cta1':    'TERMIN VEREINBAREN',
+    'hero.scrollhint': 'SCROLLEN ZUM ENTDECKEN ↓',
 
     'about.caption':    'Barbershop-Interieur — Ledersessel, warmes Licht',
     'about.eyebrow':    'MEHR ALS EIN BARBERSHOP',
@@ -106,6 +107,7 @@ const T = {
     'hero.title2':  'Your Crown.',
     'hero.sub':     'Precision skin fades, sharp lineups and expert beard work in the heart of Austria. Where every cut is crafted, never rushed.',
     'hero.cta1':    'BOOK YOUR APPOINTMENT',
+    'hero.scrollhint': 'SCROLL TO DISCOVER ↓',
 
     'about.caption':    'Barbershop interior — leather chairs, warm lighting',
     'about.eyebrow':    'MORE THAN A BARBERSHOP',
