@@ -60,9 +60,18 @@ a:hover { color: #efd48c; }
 .nav-link:hover { color: var(--accent); }
 .nav-cta { background: var(--accent); color: #151009; padding: 10px 20px; font-weight: 600; border-radius: 2px; transition: background .2s; }
 .nav-cta:hover { background: #efd48c; color: #151009; }
-.lang-switch { display: flex; align-items: center; gap: 6px; font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 1px; }
-.lang-btn { background: none; border: 1px solid rgba(216,169,74,.3); color: #b8b0a4; padding: 5px 9px; border-radius: 2px; cursor: pointer; font-family: inherit; font-size: 11px; letter-spacing: 1px; }
-.lang-btn.active { background: var(--accent); color: #151009; border-color: var(--accent); }
+.lang-switch { display: flex; align-items: center; gap: 8px; font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 1px; }
+.lang-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: none; color: #b8b0a4;
+  padding: 5px 4px; border-radius: 2px; cursor: pointer;
+  font-family: inherit; font-size: 11px; letter-spacing: 1px; font-weight: 500;
+  transition: color .2s, background .2s;
+}
+.lang-btn .fi { width: 20px; height: 15px; border-radius: 2px; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(255,255,255,.1); }
+.lang-btn:hover { color: #f4efe6; background: rgba(216,169,74,.08); }
+.lang-btn.active { color: var(--accent); background: rgba(216,169,74,.1); }
+.lang-sep { width: 1px; height: 16px; background: rgba(216,169,74,.2); flex-shrink: 0; }
 .nav-toggle {
   display: none; flex-direction: column; justify-content: center; gap: 5px;
   width: 34px; height: 34px; background: none; border: none; cursor: pointer; padding: 0;
