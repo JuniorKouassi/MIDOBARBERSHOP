@@ -11,6 +11,7 @@
     const titleRight = document.getElementById('expandTitleRight');
     const caption = document.getElementById('expandCaption');
     const reveal = document.getElementById('expandReveal');
+    const hintBtn = document.getElementById('expandHintBtn');
     const video = hero.querySelector('.expand-video');
     if (!media || !titleLeft || !titleRight) return;
 
@@ -137,12 +138,55 @@
       render();
     }
 
+    // Guaranteed-to-work fallback: an explicit clickable control and keyboard
+    // support, in case a mouse/trackpad/browser combination never dispatches
+    // usable 'wheel' deltas (some hardware drivers remap or swallow them).
+    let animRaf = null;
+    function animateProgressTo(target, duration) {
+      if (animRaf) cancelAnimationFrame(animRaf);
+      const start = scrollProgress;
+      const startTime = performance.now();
+      function step(now) {
+        const t = clamp((now - startTime) / duration, 0, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        updateProgress(start + (target - start) * eased);
+        if (t < 1) animRaf = requestAnimationFrame(step);
+      }
+      animRaf = requestAnimationFrame(step);
+    }
+
+    function handleKeydown(e) {
+      const advanceKeys = ['ArrowDown', 'PageDown', ' '];
+      const reverseKeys = ['ArrowUp', 'PageUp'];
+      if (advanceKeys.indexOf(e.key) !== -1 && !mediaFullyExpanded) {
+        e.preventDefault();
+        animateProgressTo(clamp(scrollProgress + 0.25, 0, 1), 350);
+      } else if (reverseKeys.indexOf(e.key) !== -1) {
+        if (mediaFullyExpanded && window.scrollY <= 5) {
+          mediaFullyExpanded = false;
+          lockScroll();
+          e.preventDefault();
+          animateProgressTo(clamp(scrollProgress - 0.25, 0, 1), 350);
+        } else if (!mediaFullyExpanded) {
+          e.preventDefault();
+          animateProgressTo(clamp(scrollProgress - 0.25, 0, 1), 350);
+        }
+      }
+    }
+
+    if (hintBtn) {
+      hintBtn.addEventListener('click', function () {
+        animateProgressTo(1, 900);
+      });
+    }
+
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('resize', handleResize);
+    window.addEventListener('keydown', handleKeydown);
 
     if (video) {
       video.play().catch(function () {

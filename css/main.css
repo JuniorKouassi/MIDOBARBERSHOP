@@ -124,7 +124,12 @@ a:hover { color: #efd48c; }
 .expand-title-right { color: var(--accent); }
 .expand-caption { position: relative; z-index: 2; text-align: center; margin-top: 22px; transition: opacity .3s ease; }
 .expand-caption .eyebrow { margin: 0 0 10px; }
-.expand-hint { font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 3px; color: #8b8478; margin: 0; animation: hintFloat 2s ease-in-out infinite; }
+.expand-hint {
+  font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 3px; color: #8b8478; margin: 0;
+  background: none; border: none; padding: 6px 10px; cursor: pointer;
+  animation: hintFloat 2s ease-in-out infinite; transition: color .2s ease;
+}
+.expand-hint:hover, .expand-hint:focus-visible { color: var(--accent); }
 @keyframes hintFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 .expand-reveal {
   position: relative; z-index: 2; text-align: center;
