@@ -155,7 +155,55 @@ a:hover { color: #efd48c; }
 /* ── Gallery ── */
 .gallery-wrap { max-width: 840px; margin: 0 auto; }
 .gallery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-.gallery-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.gallery-item { position: relative; }
+.gallery-item img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+
+/* ── Glowing effect (mouse-tracking border glow) ── */
+.glow-card { position: relative; }
+.glow-effect {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  --glow-start: 0;
+  --glow-active: 0;
+  --glow-spread: 24;
+  --glow-border-width: 1.5px;
+  --glow-gradient:
+    radial-gradient(circle, #f4e0ac 10%, #f4e0ac00 20%),
+    radial-gradient(circle at 40% 40%, #d8a94a 5%, #d8a94a00 15%),
+    radial-gradient(circle at 60% 60%, #efd48c 10%, #efd48c00 20%),
+    radial-gradient(circle at 40% 60%, #8f6a1a 10%, #8f6a1a00 20%),
+    repeating-conic-gradient(
+      from 236.84deg at 50% 50%,
+      #f4e0ac 0%,
+      #d8a94a calc(25% / 5),
+      #efd48c calc(50% / 5),
+      #8f6a1a calc(75% / 5),
+      #f4e0ac calc(100% / 5)
+    );
+}
+.glow-effect .glow { border-radius: inherit; position: relative; height: 100%; }
+.glow-effect .glow::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--glow-border-width));
+  border-radius: inherit;
+  border: var(--glow-border-width) solid transparent;
+  background: var(--glow-gradient);
+  background-attachment: fixed;
+  opacity: var(--glow-active);
+  transition: opacity .3s;
+  -webkit-mask-image: linear-gradient(#0000,#0000), conic-gradient(from calc((var(--glow-start) - var(--glow-spread)) * 1deg), #00000000 0deg, #fff, #00000000 calc(var(--glow-spread) * 2deg));
+  mask-image: linear-gradient(#0000,#0000), conic-gradient(from calc((var(--glow-start) - var(--glow-spread)) * 1deg), #00000000 0deg, #fff, #00000000 calc(var(--glow-spread) * 2deg));
+  -webkit-mask-clip: padding-box, border-box;
+  mask-clip: padding-box, border-box;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow-effect .glow::after { transition: none; }
+}
 .gallery-more { text-align: center; margin-top: 48px; }
 .gallery-more a { font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 2.5px; color: var(--accent); border-bottom: 1px solid rgba(216,169,74,.4); padding-bottom: 6px; }
 .gallery-more a:hover { color: #efd48c; }
